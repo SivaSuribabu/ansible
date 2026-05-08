@@ -25,6 +25,28 @@ keyed_groups:
 
 ================================================
 
+
+=================================================
+plugin: amazon.aws.aws_ec2
+
+regions:
+  - us-east-1
+
+filters:
+  instance-state-name: running
+
+hostnames:
+  - ip-address
+
+compose:
+  ansible_host: public_ip_address
+
+vars:
+  ansible_user: ec2-user
+  ansible_ssh_private_key_file: ~/.ssh/mykey.pem
+
+
+=================================================
 pip install ansible
 
 
