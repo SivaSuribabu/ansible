@@ -28,22 +28,19 @@ keyed_groups:
 
 =================================================
 plugin: amazon.aws.aws_ec2
-
 regions:
   - us-east-1
 
 filters:
   instance-state-name: running
+  "tag:Monitoring": "Yes"
 
 hostnames:
-  - ip-address
+  - private-ip-address
 
 compose:
-  ansible_host: public_ip_address
-
-vars:
-  ansible_user: ec2-user
-  ansible_ssh_private_key_file: ~/.ssh/mykey.pem
+  ansible_user: ubuntu
+  ansible_ssh_private_key_file: /home/ubuntu/.ssh/id_rsa
 
 
 =================================================
@@ -53,3 +50,10 @@ pip install ansible
 which python
 which ansible
 ansible --version
+
+
+for host in $(ansible-inventory -i aws_ec2.yml --list | jq -r '._meta.hostvars | keys[]'); do
+    ssh-keyscan -H $host >> ~/.ssh/known_hosts 2>/dev/null
+done
+ansible all -i aws_ec2.yml -m ping
+
