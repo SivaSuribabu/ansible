@@ -8,21 +8,31 @@
       "cpu": {
         "resources": ["*"],
         "measurement": [
-          "cpu_usage_idle",
-          "cpu_usage_user",
-          "cpu_usage_system"
+          {
+            "name": "cpu_usage_idle",
+            "rename": "CPUIdlePercent",
+            "unit": "Percent"
+          }
         ],
         "totalcpu": true
       },
       "mem": {
         "measurement": [
-          "mem_used_percent"
+          {
+            "name": "mem_used_percent",
+            "rename": "MemoryUsagePercent",
+            "unit": "Percent"
+          }
         ]
       },
       "disk": {
         "resources": ["/"],
         "measurement": [
-          "used_percent"
+          {
+            "name": "used_percent",
+            "rename": "DiskUsagePercent",
+            "unit": "Percent"
+          }
         ]
       }
     }
