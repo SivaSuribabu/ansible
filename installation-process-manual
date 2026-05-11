@@ -1,0 +1,30 @@
+sudo yum install -y amazon-cloudwatch-agent
+sudo systemctl status amazon-cloudwatch-agent
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+
+The generated config usually goes here:
+/opt/aws/amazon-cloudwatch-agent/bin/config.json
+
+Start CloudWatch Agent:
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
+-a fetch-config \
+-m ec2 \
+-s \
+-c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+
+
+Check status:
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a status (or)
+sudo systemctl status amazon-cloudwatch-agent
+
+
+1. SSH to server
+2. Attach CloudWatchAgentServerPolicy to EC2 role
+3. Install CloudWatch Agent
+4. Generate config using wizard
+5. Start CloudWatch Agent
+6. Verify metrics in CloudWatch → CWAgent
+7. Install Grafana
+8. Open port 3000
+9. Add CloudWatch data source
+10. Create dashboard
